@@ -7,10 +7,10 @@ app.use(express.json());
 
 // Configuración de la base de datos
 const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: 'admin783',
-  database: 'tp2_backend'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE
 };
 
 
