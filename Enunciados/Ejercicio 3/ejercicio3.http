@@ -1,0 +1,112 @@
+### Variables Ejercicio 3
+@api_materias = http://localhost:3002/materias
+@api_calificaciones = http://localhost:3002/calificaciones
+
+### Crear materia (Programación 3)
+POST {{api_materias}}
+Content-Type: application/json
+
+{
+  "nombre": "Programación 3"
+}
+
+### POST Crear otra materia
+POST {{api_materias}}
+Content-Type: application/json
+
+{
+  "nombre": "Bases de Datos"
+}
+
+### GET Listar materias
+GET {{api_materias}}
+
+### Registrar calificaciones
+POST {{api_calificaciones}}
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Bruno Gonzalez Romero",
+  "materia_id": 1,
+  "nota1": 8.50,
+  "nota2": 7.00,
+  "nota3": 9.25
+}
+
+### POST - Registrar notas para otro alumno
+POST {{api_calificaciones}}
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Cami",
+  "materia_id": 1,
+  "nota1": 9.00,
+  "nota2": 8.50,
+  "nota3": 10
+}
+
+### POST - Error: El alumno ya tiene notas en esta materia
+POST {{api_calificaciones}}
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Bruno Gonzalez Romero",
+  "materia_id": 1,
+  "nota1": 6,
+  "nota2": 6,
+  "nota3": 6
+}
+
+### POST - Error: Notas fuera de la escala 1-10
+POST {{api_calificaciones}}
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Victoria Barraza",
+  "materia_id": 2,
+  "nota1": 11,
+  "nota2": -2,
+  "nota3": 8
+}
+
+### POST Error: Materia inexistente (ID 999)
+POST {{api_calificaciones}}
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Kiara Fajardo",
+  "materia_id": 999,
+  "nota1": 7,
+  "nota2": 7,
+  "nota3": 8
+}
+
+### Modificar solo una nota (Actualización parcial)
+PUT {{api_calificaciones}}/1
+Content-Type: application/json
+
+{
+  "nota3": 10
+}
+
+### Modificar alumno y materia a la vez
+PUT {{api_calificaciones}}/1
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Gino Fazzolari",
+  "materia_id": 2
+}
+
+###  Error de unicidad
+# Este PUT intenta cambiar el alumno y la materia a una combinación que ya existe en otra calificación (ID 2)
+PUT {{api_calificaciones}}/2
+Content-Type: application/json
+
+{
+  "alumno_nombre": "Gino Fazzolari",
+  "materia_id": 2
+}
+
+### Eliminar un registro de calificaciones
+DELETE {{api_calificaciones}}/1
